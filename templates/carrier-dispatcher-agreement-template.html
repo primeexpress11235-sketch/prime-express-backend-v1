@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  @page { size: Letter; margin: 0; }
+  * { box-sizing: border-box; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  body { margin: 0; font-family: 'Helvetica', Arial, sans-serif; color: #101828; font-size: 9.5px; }
+  .page { padding: 36px 44px; }
+
+  .logo-wrap { text-align: center; margin-bottom: 10px; }
+  .logo { height: 60px; }
+
+  h1 { text-align: center; font-size: 17px; margin: 0 0 2px 0; letter-spacing: 0.5px; color: #0B1B3F; }
+  .subtitle { text-align: center; font-size: 8.5px; letter-spacing: 1.5px; color: #0A7FE0; font-weight: bold; margin-bottom: 14px; }
+  .rule { height: 2.5px; background: #0A7FE0; margin-bottom: 14px; }
+
+  .intro { background: #F5F8FC; border-left: 4px solid #0A7FE0; padding: 9px 14px; font-size: 9px; line-height: 1.5; margin-bottom: 14px; }
+
+  .bar { background: #0B1B3F; color: #fff; font-weight: bold; font-size: 9px; letter-spacing: 0.5px;
+         padding: 6px 10px; margin: 14px 0 8px 0; }
+
+  p.body, ul.body { font-size: 9px; line-height: 1.55; margin: 0 0 4px 0; }
+  ul.body { margin: 4px 0 4px 18px; padding: 0; }
+  ul.body li { margin-bottom: 2px; }
+
+  table.rates { width: 100%; border-collapse: collapse; margin: 6px 0; }
+  table.rates th { background: #0A7FE0; color: #fff; text-align: left; font-size: 8.5px; padding: 6px 9px; }
+  table.rates td { padding: 6px 9px; border-bottom: 0.5px solid #D9E2EE; font-size: 8.8px; }
+  table.rates tr:nth-child(odd) td { background: #F5F8FC; }
+  .fee-note { font-size: 7.8px; font-style: italic; color: #667085; margin-top: 3px; }
+
+  .warn { background: #EAF3FD; border: 0.75px solid #B9D8F7; border-radius: 3px; padding: 7px 10px; font-size: 8.5px; margin-top: 6px; }
+
+  .accept { font-size: 9px; margin: 16px 0 10px 0; }
+
+  .sig-grid { width: 100%; border-collapse: collapse; margin-top: 6px; }
+  .sig-grid td { width: 50%; vertical-align: top; padding-right: 30px; }
+  .sig-col h4 { font-size: 9px; color: #101828; margin: 0 0 16px 0; }
+  .sig-line { border-bottom: 0.75px solid #101828; height: 22px; }
+  .sig-cap { font-size: 7.5px; color: #667085; margin-top: 2px; }
+  .sig-cap table { width: 100%; }
+  .sig-cap td { padding: 0; width: 50%; }
+  .sig-cap td.r { text-align: right; }
+
+  .footer { background: #0B1B3F; color: #fff; text-align: center; font-size: 7.8px; padding: 8px 10px; margin-top: 18px; border-radius: 3px; }
+  .footer b { color: #fff; }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="logo-wrap"><img class="logo" src="data:image/png;base64,{{logoBase64}}" /></div>
+  <h1>CARRIER-DISPATCHER SERVICE AGREEMENT</h1>
+  <div class="subtitle">{{company.legalEntityName}} &bull; TRUCK DISPATCHING</div>
+  <div class="rule"></div>
+
+  <div class="intro">
+    This Agreement is made between <b>{{company.legalEntityName}}</b> and <b>{{carrier.companyName}}</b>,
+    {{carrier.mcNumber}}, DOT# {{carrier.dotNumber}}. By accepting below, both parties agree to the
+    terms set out here.
+  </div>
+
+  <div class="bar">SERVICES PROVIDED</div>
+  <p class="body">{{company.legalEntityName}} will act as the Carrier's truck dispatcher: sourcing loads, negotiating
+  rates with brokers, and booking loads on behalf of the Carrier's truck(s), in exchange for the dispatch
+  fee set out below.</p>
+
+  <div class="bar">DISPATCH FEE - WEEKLY RATE PLAN</div>
+  <p class="body">The Carrier is billed weekly under the following plan:</p>
+  <table class="rates">
+    <thead><tr><th>Fee Plan</th><th>Truck Type</th><th>Rate</th></tr></thead>
+    <tbody>
+      <tr><td>{{feePlanType}}</td><td>{{truckType}}</td><td><b>{{rateValue}}</b></td></tr>
+    </tbody>
+  </table>
+  <div class="fee-note">The fee plan and rate shown above apply to this Carrier. A percentage plan is charged on the
+  gross rate of loads booked; a flat plan is charged as one fixed amount per week. Invoices are issued at the
+  end of each work week, and the due date is stated on each invoice.</div>
+
+  <div class="bar">NO LONG-TERM COMMITMENT</div>
+  <p class="body">This Agreement does not bind the Carrier to a minimum term. The Carrier may stop working with
+  {{company.legalEntityName}} and terminate this Agreement at any time, for any reason, without penalty.</p>
+  <div class="warn">If any dispatch fee invoice is outstanding at the time notice is given, that invoice must be
+  paid in full before the termination takes effect.</div>
+
+  <div class="bar">CARRIER RESPONSIBILITIES</div>
+  <ul class="body">
+    <li>Provide accurate truck, equipment and compliance information (MC/DOT, insurance and driver details)</li>
+    <li>Keep {{company.legalEntityName}} informed of truck availability</li>
+    <li>Complete loads booked on its behalf in good faith</li>
+  </ul>
+
+  <div class="accept">I agree to the terms and conditions of this Carrier-Dispatcher Service Agreement and
+  confirm that I have read and understood the Agreement before accepting it.</div>
+
+  <table class="sig-grid"><tr>
+    <td class="sig-col">
+      <h4>FOR THE CARRIER</h4>
+      <div class="sig-line"></div>
+      <div class="sig-cap">Signature</div>
+      <div class="sig-line" style="margin-top:10px;"></div>
+      <div class="sig-cap"><table><tr><td>Printed Name</td><td class="r">Date</td></tr></table></div>
+    </td>
+    <td class="sig-col">
+      <h4>FOR {{company.legalEntityName}}</h4>
+      <div class="sig-line"></div>
+      <div class="sig-cap">Signature</div>
+      <div class="sig-line" style="margin-top:10px;"></div>
+      <div class="sig-cap"><table><tr><td>Printed Name</td><td class="r">Date</td></tr></table></div>
+    </td>
+  </tr></table>
+
+  <div class="footer">
+    <b>Phone:</b> {{company.phone}} &nbsp;|&nbsp; <b>Official Email:</b> {{company.email}} &nbsp;|&nbsp;
+    <b>Web:</b> {{company.website}} &nbsp;|&nbsp; <b>Address:</b> {{company.address}}
+  </div>
+
+</div>
+</body>
+</html>

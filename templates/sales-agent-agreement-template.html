@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  @page { size: Letter; margin: 0; }
+  * { box-sizing: border-box; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  body { margin: 0; font-family: 'Helvetica', Arial, sans-serif; color: #101828; font-size: 9.5px; }
+  .page { padding: 30px 44px; }
+
+  .logo-wrap { text-align: center; margin-bottom: 8px; }
+  .logo { height: 66px; }
+
+  h1 { text-align: center; font-size: 17px; margin: 0 0 2px 0; color: #0B1B3F; }
+  .subtitle { text-align: center; font-size: 9px; color: #0A7FE0; font-weight: bold; margin-bottom: 10px; }
+  .rule { height: 2.5px; background: #0A7FE0; margin-bottom: 12px; }
+
+  .intro { font-size: 9px; line-height: 1.55; margin-bottom: 10px; }
+
+  .bar { background: #0B1B3F; color: #fff; font-weight: bold; font-size: 8.8px; letter-spacing: 0.4px;
+         padding: 5px 10px; margin: 10px 0 6px 0; }
+
+  p.body { font-size: 8.8px; line-height: 1.55; margin: 0 0 4px 0; }
+
+  .accept-box { border: 0.75px solid #0A7FE0; background: #EAF3FD; border-radius: 3px; padding: 10px 14px; margin-top: 14px; }
+  .accept-box h4 { color: #0A7FE0; font-size: 9.5px; margin: 0 0 6px 0; }
+  .check-row { display: flex; align-items: flex-start; gap: 8px; }
+  .check-row .box { width: 13px; height: 13px; border: 1.5px solid #0A7FE0; background: #0A7FE0; flex-shrink: 0; margin-top: 1px;
+                     display: flex; align-items: center; justify-content: center; border-radius: 2px; }
+  .check-row .text { font-size: 8.8px; line-height: 1.5; }
+
+  .acceptance-details { margin-top: 10px; font-size: 8.8px; }
+  .acceptance-details .row { display: flex; margin: 4px 0; align-items: center; }
+  .acceptance-details .label { width: 110px; color: #667085; }
+  .acceptance-details .val { font-weight: bold; }
+
+  .footer { border-top: 0.75px solid #D9E2EE; margin-top: 16px; padding-top: 8px; text-align: center; font-size: 7.8px; color: #667085; }
+  .footer b { color: #101828; }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="logo-wrap"><img class="logo" src="data:image/png;base64,{{logoBase64}}" /></div>
+  <h1>INDEPENDENT SALES AGENT AGREEMENT</h1>
+  <div class="subtitle">{{company.legalEntityName}}</div>
+  <div class="rule"></div>
+
+  <div class="intro">
+    This Agreement is made on <b>{{agreementDate}}</b> between <b>{{company.legalEntityName}}</b> ("the Company") and <b>{{agent.fullName}}</b>, <b>{{agent.cnic}}</b> ("the Agent"). The Key Terms below form part of this Agreement.
+  </div>
+
+  <div class="bar">AGENT COMMISSION</div>
+  <p class="body">50% of the dispatch fee on the first weekly invoice issued to each eligible carrier the Agent
+  onboards, counted only on the amount the Company actually receives for that invoice. Commission is paid once per
+  carrier, on that first weekly invoice only. No commission is paid on later invoices. An eligible carrier is one
+  that (a) was submitted by the Agent through the Portal after a real conversation, (b) signs the
+  Carrier-Dispatcher Agreement, (c) becomes active, and (d) pays the dispatch fee on its first weekly invoice.</p>
+
+  <div class="bar">PAYMENT</div>
+  <p class="body">The Agent's commission is paid after the Company receives the carrier's payment for that first
+  weekly invoice. If a carrier pays late, the commission is paid once the carrier's payment is actually received.
+  There is no fixed salary, no minimum payment and no guaranteed income. Commission depends only on active
+  carriers that pay their first weekly invoice.</p>
+
+  <div class="bar">TRAINING AND CAREER PATH</div>
+  <p class="body">Training is provided through the Academy inside the Portal (course chapters, quizzes,
+  auto-generated certificate on completion, Truck Reference and Comparison, and a shared FAQ). Agents who perform
+  strongly may later be trained as Dispatchers under separate terms. This is an opportunity, not a promise.</p>
+
+  <div class="bar">LEAD ASSIGNMENT AND DAILY WORK</div>
+  <p class="body">The Admin assigns leads to the Agent directly from the Dashboard. The Agent works assigned leads
+  to find a potential carrier, and submits a lead through the Portal once it is serious or the carrier has shared
+  truck/trailer, accessories, preference or document details. The Admin tracks the Agent's daily and monthly
+  performance in the Portal.</p>
+
+  <div class="bar">LEADS, DATA AND CONFIDENTIALITY</div>
+  <p class="body">All leads, carrier records, scripts, course content and Portal data belong to the Company,
+  regardless of who found or contacted them. The Agent will access this information only through the Portal
+  and only for Company work, and will not copy, export, screenshot, download, forward it, or share login details
+  with anyone.</p>
+
+  <div class="bar">QUITTING AND TERMINATION</div>
+  <p class="body">An Agent who wants to quit must send written notice to the Administration of the Company
+  at least 2 weeks before quitting. During the notice period the Agent continues assigned work, logs every lead,
+  and hands over open follow-ups; Portal access ends on the last day. Commission already earned is still paid,
+  including on a carrier submitted by the Agent whose first weekly invoice is still unpaid when the Agent leaves.</p>
+
+  <div class="accept-box">
+    <h4>AGENT ACCEPTANCE</h4>
+    <div class="check-row">
+      <div class="box">
+        <svg viewBox="0 0 12 12" width="9" height="9" fill="none" xmlns="http://www.w3.org/2000/svg" style="display: block;">
+          <path d="M2.5 6.2L4.8 8.5L9.5 3.5" stroke="#FFFFFF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <div class="text">I agree to the terms and conditions of this Independent Sales Agent Agreement and confirm
+      that I have read and understood the Agreement before accepting it.</div>
+    </div>
+    <div class="acceptance-details">
+      <div class="row"><div class="label">Full Name</div><div class="val">{{agent.fullName}}</div></div>
+      <div class="row"><div class="label">CNIC No.</div><div class="val">{{agent.cnic}}</div></div>
+      <div class="row"><div class="label">Agent Signature</div><div class="val">{{agent.fullName}} (electronic signature)</div></div>
+      {{#if agent.signatureImage}}
+      <div class="row" style="margin: 6px 0; align-items: flex-end;">
+        <div class="label" style="padding-bottom: 4px;">Drawn Signature</div>
+        <div class="val" style="border-bottom: 1px solid #101828; padding-bottom: 2px; min-width: 180px; display: inline-block;">
+          <img src="{{agent.signatureImage}}" style="max-height: 42px; max-width: 220px; object-fit: contain; display: block;" />
+        </div>
+      </div>
+      {{/if}}
+      <div class="row"><div class="label">Accepted On</div><div class="val">{{acceptedTimestamp}}</div></div>
+    </div>
+  </div>
+
+  <div class="footer">
+    Phone: <b>{{company.phone}}</b> &nbsp;|&nbsp; Official Email: <b>{{company.email}}</b> &nbsp;|&nbsp;
+    Website: <b>{{company.website}}</b><br/>Address: {{company.address}}
+  </div>
+
+</div>
+</body>
+</html>

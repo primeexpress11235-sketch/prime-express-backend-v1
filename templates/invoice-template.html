@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<style>
+  @page { size: Letter; margin: 0; }
+  * { box-sizing: border-box; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  body { font-family: Arial, Helvetica, sans-serif; color: #101828; margin: 0; padding: 40px; font-size: 13px; }
+  .header { display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 4px solid #0A7FE0; padding-bottom: 16px; margin-bottom: 24px; }
+  .logo-block img { height: 62px; }
+  .company-info { margin-top: 8px; font-size: 12px; line-height: 1.5; }
+  .company-info .legal-name { color: #0B1B3F; font-weight: bold; }
+  .invoice-title { text-align: right; }
+  .invoice-title h1 { font-size: 34px; margin: 0; letter-spacing: 1px; color: #0B1B3F; }
+  .invoice-meta { font-size: 12px; margin-top: 8px; line-height: 1.6; }
+  .invoice-meta b { display: inline-block; width: 90px; }
+  .sample-flag { color: #B42318; font-weight: bold; font-size: 11px; margin-top: 6px; }
+
+  .two-col { display: flex; gap: 24px; margin-bottom: 24px; }
+  .card { flex: 1; border: 1px solid #D9E2EE; border-radius: 4px; padding: 14px 18px; background: #F5F8FC; }
+  .card h3 { color: #0A7FE0; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; margin: 0 0 10px 0; border-bottom: 1px solid #E3EAF3; padding-bottom: 6px; }
+  .card table { width: 100%; border-collapse: collapse; }
+  .card table td { padding: 3px 0; font-size: 12.5px; vertical-align: top; }
+  .card table td:first-child { color: #667085; width: 40%; }
+  .card table td:last-child { font-weight: 600; }
+
+  .section-title { color: #0A7FE0; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; margin: 24px 0 10px 0; }
+
+  table.loads { width: 100%; border-collapse: collapse; margin-bottom: 24px; }
+  table.loads th { background: #0B1B3F; color: #fff; text-align: left; padding: 8px 10px; font-size: 11.5px; text-transform: uppercase; }
+  table.loads td { padding: 9px 10px; font-size: 12.5px; border-bottom: 1px solid #E3EAF3; }
+  table.loads td.amount, table.loads th.amount { text-align: right; }
+  .flat-rate-label { color: #98A2B3; font-style: italic; }
+
+  .bottom-row { display: flex; gap: 24px; margin-bottom: 20px; align-items: stretch; }
+  .payment-card { flex: 1; border: 1px solid #D9E2EE; border-radius: 4px; padding: 14px 18px; background: #F5F8FC; }
+  .payment-card h3 { color: #0A7FE0; font-size: 12px; text-transform: uppercase; margin: 0 0 10px 0; border-bottom: 1px solid #E3EAF3; padding-bottom: 6px; }
+  .payment-card table { width: 100%; border-collapse: collapse; }
+  .payment-card table td { padding: 3px 0; font-size: 12.5px; vertical-align: top; }
+  .payment-card table td:first-child { color: #667085; width: 40%; }
+  .payment-card table td:last-child { font-weight: 600; }
+  .payment-card .ref-note { font-size: 11px; color: #667085; margin-top: 8px; }
+
+  .summary-card { flex: 1; display: flex; flex-direction: column; justify-content: space-between; }
+  .summary-lines { border: 1px solid #D9E2EE; border-radius: 4px 4px 0 0; border-bottom: none; padding: 14px 18px; background: #F5F8FC; }
+  .summary-lines table { width: 100%; }
+  .summary-lines td { padding: 4px 0; font-size: 12.5px; }
+  .summary-lines td:last-child { text-align: right; font-weight: 600; }
+  .total-due { background: #0B1B3F; color: #fff; border-radius: 0 0 4px 4px; padding: 16px 18px; display: flex; justify-content: space-between; align-items: center; }
+  .total-due .label { font-size: 13px; text-transform: uppercase; letter-spacing: 0.5px; }
+  .total-due .amount { font-size: 28px; font-weight: bold; }
+
+  .footer { border-top: 2px solid #0A7FE0; padding-top: 12px; display: flex; justify-content: space-between; font-size: 11px; color: #475467; }
+</style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="logo-block">
+      {{#if logoBase64}}
+      <img src="data:image/png;base64,{{logoBase64}}" alt="DKR Trucking LLC">
+      {{else if logoUrl}}
+      <img src="{{logoUrl}}" alt="DKR Trucking LLC">
+      {{/if}}
+      <div class="company-info">
+        <span class="legal-name">{{legalEntityName}}</span><br>
+        {{companyAddress}}<br>
+        {{companyEmail}} | {{companyPhone}} | {{companyWebsite}}
+      </div>
+    </div>
+    <div class="invoice-title">
+      <h1>INVOICE</h1>
+      <div class="invoice-meta">
+        <b>Invoice No.</b> {{invoiceNumber}}<br>
+        <b>Invoice Date</b> {{invoiceDate}}<br>
+        <b>Due Date</b> {{dueDate}}
+      </div>
+      {{#if isSample}}<div class="sample-flag">SAMPLE DATA. NOT FOR PAYMENT.</div>{{/if}}
+    </div>
+  </div>
+
+  <div class="two-col">
+    <div class="card">
+      <h3>Bill To</h3>
+      <table>
+        <tr><td>Carrier</td><td>{{carrierName}}</td></tr>
+        <tr><td>MC / DOT</td><td>{{mcNumber}} / DOT {{dotNumber}}</td></tr>
+        <tr><td>Address</td><td>{{carrierAddress}}</td></tr>
+        <tr><td>Contact</td><td>{{contactName}}</td></tr>
+        <tr><td>Email / Phone</td><td>{{contactEmail}} / {{contactPhone}}</td></tr>
+      </table>
+    </div>
+    <div class="card">
+      <h3>Service Summary</h3>
+      <table>
+        <tr><td>Service</td><td>Truck dispatching and load booking</td></tr>
+        <tr><td>Truck Type</td><td>{{truckType}}</td></tr>
+        <tr><td>Fee Plan</td><td>{{feePlanLabel}}</td></tr>
+        <tr><td>Billing Week</td><td>{{billingPeriodStart}} to {{billingPeriodEnd}}</td></tr>
+        <tr><td>Currency</td><td>USD</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="section-title">Load Details</div>
+  <table class="loads">
+    <thead>
+      <tr>
+        <th>Load Ref.</th>
+        <th>Pickup</th>
+        <th>Origin to Destination</th>
+        <th>Broker</th>
+        <th class="amount">Gross Rate</th>
+        <th class="amount">Dispatch Fee</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each loads}}
+      <tr>
+        <td>{{this.loadRef}}</td>
+        <td>{{this.pickupDate}}</td>
+        <td>{{this.origin}} to {{this.destination}}</td>
+        <td>{{this.broker}}</td>
+        <td class="amount">${{this.grossRate}}</td>
+        <td class="amount">
+          {{#if ../isFlatRatePlan}}<span class="flat-rate-label">Flat rate</span>{{else}}${{this.dispatchFee}}{{/if}}
+        </td>
+      </tr>
+      {{/each}}
+    </tbody>
+  </table>
+
+  <div class="bottom-row">
+    <div class="payment-card">
+      <h3>Payment Instructions</h3>
+      {{#if paymentMethodLabel}}
+      <table>
+        <tr><td>Pay by</td><td>{{paymentMethodLabel}}</td></tr>
+        {{#each paymentDetails}}
+        <tr><td>{{this.label}}</td><td>{{this.value}}</td></tr>
+        {{/each}}
+        <tr><td>Reference</td><td>{{invoiceNumber}}</td></tr>
+      </table>
+      <div class="ref-note">Please use the invoice number as your payment reference.</div>
+      {{else}}
+      <div class="ref-note">Payment details will be provided by {{legalEntityName}}. Please use invoice number {{invoiceNumber}} as your payment reference.</div>
+      {{/if}}
+    </div>
+    <div class="summary-card">
+      <div class="summary-lines">
+        <table>
+          <tr><td>Loads completed this week</td><td>{{loadCount}}</td></tr>
+          <tr><td>Gross load revenue for the week</td><td>${{grossRevenueTotal}}</td></tr>
+          <tr><td>Fee plan applied</td><td>{{feePlanAppliedLabel}}</td></tr>
+          <tr><td>Dispatch fee</td><td>${{dispatchFeeTotal}}</td></tr>
+        </table>
+      </div>
+      <div class="total-due">
+        <div class="label">Total Due</div>
+        <div class="amount">${{totalDue}}</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div><b>Thank you for working with DKR Trucking.</b><br>{{companyEmail}} | {{companyPhone}} | {{companyWebsite}}</div>
+    <div>Weekly Invoice | {{invoiceNumber}}</div>
+  </div>
+
+</body>
+</html>
